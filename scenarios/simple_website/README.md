@@ -24,7 +24,14 @@ python -m http.server 8888
 
 ## スクリーンショット
 
-![screenshot](./screenshot.png)
+![screenshot](./images/screenshot.png)
+
+## その他
+
+- `Open Chat in New Window`: GitHub Copilot Chat フォームを別ウィンドウで開く
+- `Simple Browser: Show`: ブラウザを開いて要素のコンテキストを追加できる
+
+![simple_browser](./images/simple_browser.png)
 
 # 参考文献
 
