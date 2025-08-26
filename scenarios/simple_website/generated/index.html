@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Water Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container" role="main">
+    <h1>Water Tracker</h1>
+    <p class="goal">Daily goal: <strong id="goal">96</strong> oz</p>
+
+    <section class="tracker" aria-label="water tracker">
+      <div class="progress" id="progress" role="progressbar" aria-valuemin="0" aria-valuemax="96" aria-valuenow="0" aria-label="progress">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="info">
+        <div class="consumed"><span id="consumed">0</span> oz</div>
+        <div class="percentage"><span id="percentage">0%</span></div>
+        <div class="remaining"><span id="remaining">96</span> oz remaining</div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <div class="step-controls">
+        <button id="decrement" class="btn secondary" title="減らす">- 4 oz</button>
+        <button id="increment" class="btn primary" title="増やす">+ 4 oz</button>
+      </div>
+
+      <div class="custom-controls">
+        <input type="number" id="custom" min="1" placeholder="カスタム oz" aria-label="カスタムオンス" />
+        <button id="addCustom" class="btn">Add</button>
+        <button id="reset" class="btn muted">Reset</button>
+      </div>
+
+      <p class="hint">矢印キー↑/↓でも +4 / -4 oz 操作できます。</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
