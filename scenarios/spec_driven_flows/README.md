@@ -98,6 +98,14 @@ ChatGPT/Microsoft Copilot/Gemini などで適当なシステムの仕様を作�
 
 3. 2 で生成された仕様書を Context に追加して、Agent Mode で `/create-specification` を実行します。
 
+4. 3 で生成された仕様書を Context に追加して、Agent Mode で以下のプロンプトを実行します。
+
+```text
+#file:spec-process-family-restaurant-ordering-frontend.md に記載された仕様書をもとに HTML, CSS, JavaScript でフロントエンドのウェブサイトを作成してください。
+モダンなデザインと直感的な UI にしてください。
+コードは scenarios/spec_driven_flows/generated 以下に作成してください
+```
+
 # 参考文献
 
 - [Agent Mode in Action: AI Coding with Vibe and Spec-Driven Flows | BRK102](https://build.microsoft.com/en-US/sessions/BRK102?source=sessions), [YouTube](https://www.youtube.com/watch?v=1DlNVROQ6DI)
