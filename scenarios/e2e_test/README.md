@@ -7,6 +7,13 @@
 1. [Spec Driven Flow シナリオ](../spec_driven_flows/README.md)で生成したフロントエンドをローカルで起動します。(Live Server など)
 2. Playwright MCP を起動します
 3. [仕様書](../../spec/spec-process-family-restaurant-ordering-frontend.md)を読み込ませます
+4. 以下のプロンプトを GitHub Copilot の playwright-tester モードで実行してください。
+
+```text
+#file:spec-process-family-restaurant-ordering-frontend.md の要求仕様を元に作られた以下で動作しているフロントエンドウェブアプリの E2E テストコードを Python で作成してください。
+http://127.0.0.1:5500/scenarios/spec_driven_flows/generated/
+作成したコードは scenarios/e2e_test/generated 以下のディレクトリに格納してください。
+```
 
 # 参考文献
 
