@@ -221,7 +221,103 @@ tags: [process, design, app, frontend]
 - CI でユニットテストが成功し、E2E のハッピーパスがグリーンであること（マージ条件）。
 - パフォーマンスチェック（Lighthouse）が規定閾値を満たすこと（初期ロード <= 2s を想定）。
 
+### 10.1 要件と受入基準のマッピング
+
+以下は本仕様内で定義した要件（REQ-**_）と、対応する受入基準（AC-_**）の明確なマッピングです。自動テスト生成やトレーサビリティに利用してください。
+
+- REQ-001 -> AC-001
+- REQ-002 -> AC-002
+- REQ-003 -> AC-003
+- REQ-004 -> AC-004
+- REQ-005 -> AC-005
+- REQ-006 -> AC-005
+- REQ-007 -> AC-007
+- REQ-008 -> AC-006
+- REQ-009 -> AC-008 (SEC-001 と整合)
+
+### 10.2 機械可読スキーマ（JSON Schema）
+
+以下の JSON Schema は、API 契約とフロントエンドの型定義生成（例: TypeScript 型）に直接利用できることを意図しています。必要に応じてスキーマ名と $id を調整してください。
+
+#### Order schema
+
+```json
+{
+  "$id": "https://example.com/schemas/order.json",
+  "type": "object",
+  "required": ["orderId", "tableId", "items", "total", "status"],
+  "properties": {
+    "orderId": { "type": "string" },
+    "tableId": { "type": "string" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["menuId", "quantity", "price"],
+        "properties": {
+          "menuId": { "type": "string" },
+          "name": { "type": "string" },
+          "options": { "type": "object" },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "price": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "total": { "type": "integer", "minimum": 0 },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "placed", "in_kitchen", "ready", "served", "cancelled"]
+    },
+    "placedAt": { "type": ["string", "null"], "format": "date-time" }
+  }
+}
+```
+
+#### MenuItem schema
+
+```json
+{
+  "$id": "https://example.com/schemas/menu-item.json",
+  "type": "object",
+  "required": ["id", "name", "price"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "price": { "type": "integer", "minimum": 0 },
+    "imageUrl": { "type": "string", "format": "uri" },
+    "allergies": { "type": "array", "items": { "type": "string" } },
+    "options": { "type": "array", "items": { "type": "object" } }
+  }
+}
+```
+
+#### Session schema
+
+```json
+{
+  "$id": "https://example.com/schemas/session.json",
+  "type": "object",
+  "required": ["sessionToken", "tableId", "expiresAt"],
+  "properties": {
+    "sessionToken": { "type": "string" },
+    "tableId": { "type": "string" },
+    "expiresAt": { "type": "string", "format": "date-time" }
+  }
+}
+```
+
+### 10.3 検証チェックリスト（品質ゲート）
+
+- ビルド/レンダリング: Markdown がレンダリング可能で、CI のドキュメント生成ジョブ（ある場合）を通過すること。
+- スキーマ整合性: JSON Schema はスキーマバリデータで検証可能であること（例: ajv）。
+- テストカバレッジ: 上記の各 REQ に対して少なくとも 1 つの自動テスト（AC）を関連付け、CI で実行されること。
+
 ## 11. Related Specifications / Further Reading
 
 - 店舗運用フロー仕様（未作成）
 - バックエンド API 契約書（別途参照）
+
+```
+
+```

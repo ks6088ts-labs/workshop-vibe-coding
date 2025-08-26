@@ -96,6 +96,8 @@ ChatGPT/Microsoft Copilot/Gemini などで適当なシステムの仕様を作�
 
 仕様書が [spec-process-family-restaurant-ordering-frontend.md](../../spec/spec-process-family-restaurant-ordering-frontend.md) に生成されます。
 
+3. 2 で生成された仕様書を Context に追加して、Agent Mode で `/create-specification` を実行します。
+
 # 参考文献
 
 - [Agent Mode in Action: AI Coding with Vibe and Spec-Driven Flows | BRK102](https://build.microsoft.com/en-US/sessions/BRK102?source=sessions), [YouTube](https://www.youtube.com/watch?v=1DlNVROQ6DI)
