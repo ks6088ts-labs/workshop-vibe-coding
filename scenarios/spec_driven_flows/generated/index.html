@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Family Restaurant Ordering Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Spec-driven family restaurant ordering frontend demo" />
+</head>
+<body>
+  <header class="app-header" role="banner">
+    <div class="brand" tabindex="0">🍽️ <span data-i18n="app.title">Family Order</span></div>
+    <nav class="top-actions" aria-label="global actions">
+      <select id="langSelect" aria-label="Language" class="pill"></select>
+      <button id="modeToggle" class="pill" data-mode="customer" aria-pressed="false" data-i18n="mode.staff">Staff</button>
+      <button id="themeToggle" class="pill" aria-label="Toggle theme">🌗</button>
+      <button id="cartToggle" class="pill" aria-haspopup="dialog" aria-controls="cartDrawer">🛒 <span id="cartCount">0</span></button>
+    </nav>
+  </header>
+  <main id="main" class="layout" role="main">
+    <!-- Customer Flow -->
+    <section id="sessionSection" class="panel" data-view="customer">
+      <h2 data-i18n="session.startTitle">テーブルを開始</h2>
+      <form id="sessionForm" class="inline-form" autocomplete="off">
+        <label>
+          <span data-i18n="session.tableId">テーブルID</span>
+          <input id="tableIdInput" name="tableId" required minlength="1" maxlength="8" pattern="[A-Za-z0-9_-]+" />
+        </label>
+        <button type="submit" class="primary" data-i18n="session.startBtn">開始</button>
+      </form>
+      <p class="hint" data-i18n="session.hint">QR スキャンを模擬しています。テーブル ID を入力してください。</p>
+    </section>
+
+    <section id="menuSection" class="panel hidden" aria-live="polite" data-view="customer">
+      <div class="panel-header">
+        <h2 data-i18n="menu.title">メニュー</h2>
+        <div class="filters">
+          <select id="categoryFilter" aria-label="Category"></select>
+          <input id="searchInput" type="search" placeholder="Search" aria-label="Search" />
+        </div>
+      </div>
+      <div id="menuGrid" class="grid" role="list"></div>
+    </section>
+
+    <section id="staffSection" class="panel hidden" aria-live="polite" data-view="staff">
+      <h2 data-i18n="staff.title">注文管理</h2>
+      <div id="ordersEmpty" class="empty" data-i18n="staff.empty">注文はまだありません</div>
+      <ul id="ordersList" class="orders" aria-label="Orders"></ul>
+    </section>
+
+    <dialog id="itemDialog" class="dialog" aria-modal="true">
+      <form method="dialog" id="itemForm">
+        <header class="dialog-header">
+          <h3 id="itemTitle">Item</h3>
+          <button type="button" data-action="close" class="icon" aria-label="Close">✕</button>
+        </header>
+        <figure class="media"><img id="itemImage" alt="" /></figure>
+        <p id="itemDesc"></p>
+        <div id="itemAllergies" class="alert" hidden></div>
+        <fieldset id="optionContainer"></fieldset>
+        <div class="qty-row">
+          <label><span data-i18n="item.quantity">数量</span>
+            <input type="number" id="itemQty" min="1" max="20" value="1" />
+          </label>
+          <output id="itemPrice"></output>
+        </div>
+        <menu class="dialog-actions">
+          <button value="cancel" data-i18n="common.cancel">キャンセル</button>
+          <button id="addToCartBtn" value="default" class="primary" data-i18n="item.addCart">カートに追加</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <aside id="cartDrawer" class="drawer hidden" role="dialog" aria-label="Cart" aria-modal="false">
+      <header class="drawer-header">
+        <h3>🛒 <span data-i18n="cart.title">カート</span></h3>
+        <button id="closeCart" class="icon" aria-label="Close">✕</button>
+      </header>
+      <ul id="cartItems" class="cart-items" aria-live="polite"></ul>
+      <div class="cart-total">
+        <span data-i18n="cart.total">合計</span><strong id="cartTotal">0</strong>
+      </div>
+      <div class="cart-actions">
+        <button id="requestCheckoutBtn" class="secondary" data-i18n="cart.requestCheckout">会計リクエスト</button>
+        <button id="placeOrderBtn" class="primary" data-i18n="cart.placeOrder">注文確定</button>
+      </div>
+    </aside>
+  </main>
+
+  <div id="toastRegion" class="toasts" role="status" aria-live="polite"></div>
+
+  <footer class="app-footer" role="contentinfo">
+    <small>&copy; 2025 Demo | <span data-i18n="footer.disclaimer">モックデータによるデモ実装</span></small>
+  </footer>
+
+  <script src="mock-data.js"></script>
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
