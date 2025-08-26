@@ -1,0 +1,12 @@
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --strict-markers"
+testpaths = [
+    "tests",
+]
+
+markers = [
+    "smoke: marks tests as smoke tests (deselect with '-m \"not smoke\"')",
+    "integration: marks tests as integration tests",
+    "e2e: marks tests as end-to-end tests",
+]

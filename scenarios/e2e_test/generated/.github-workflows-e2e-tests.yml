@@ -1,0 +1,117 @@
+name: E2E Tests for Restaurant Ordering System
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Cache Python dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('scenarios/e2e_test/generated/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install Python dependencies
+      run: |
+        cd scenarios/e2e_test/generated
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Install Playwright browsers
+      run: |
+        cd scenarios/e2e_test/generated
+        python -m playwright install chromium
+    
+    - name: Start web application (if needed)
+      run: |
+        # Web アプリケーションの起動スクリプトがある場合は以下のようにします
+        # cd scenarios/spec_driven_flows/generated
+        # python -m http.server 5500 &
+        # sleep 5
+        echo "Web application should be running on http://127.0.0.1:5500"
+    
+    - name: Run smoke tests
+      run: |
+        cd scenarios/e2e_test/generated
+        python -m pytest tests/ -m smoke -v --tb=short
+    
+    - name: Run E2E tests  
+      run: |
+        cd scenarios/e2e_test/generated
+        python -m pytest tests/ -m e2e -v --tb=short --screenshot=only-on-failure
+    
+    - name: Run integration tests
+      run: |
+        cd scenarios/e2e_test/generated
+        python -m pytest tests/ -m integration -v --tb=short
+    
+    - name: Upload test artifacts
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-artifacts-${{ matrix.python-version }}
+        path: |
+          scenarios/e2e_test/generated/screenshots/
+          scenarios/e2e_test/generated/test-results/
+        retention-days: 7
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: pytest-results-${{ matrix.python-version }}
+        path: scenarios/e2e_test/generated/pytest-report.xml
+        retention-days: 30
+
+  performance-tests:
+    runs-on: ubuntu-latest
+    needs: e2e-tests
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+    
+    - name: Install dependencies
+      run: |
+        cd scenarios/e2e_test/generated
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        python -m playwright install chromium
+    
+    - name: Run performance tests
+      run: |
+        cd scenarios/e2e_test/generated
+        python -m pytest tests/test_restaurant_ordering_e2e.py::TestPerformance -v --tb=short
+    
+    - name: Upload performance results
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-results
+        path: scenarios/e2e_test/generated/performance-results/
+        retention-days: 90
