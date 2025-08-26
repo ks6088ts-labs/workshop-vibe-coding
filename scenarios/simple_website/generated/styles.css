@@ -1,0 +1,96 @@
+:root{
+  --bg: #0f172a;
+  --card: #0b1220;
+  --accent: #60a5fa;
+  --muted: #94a3b8;
+  --success: #34d399;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg,var(--bg) 0%, #071028 100%);
+  color:#e6eef8;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+}
+.container{
+  width:360px;
+  max-width:calc(100% - 32px);
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius:12px;
+  padding:20px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+}
+h1{margin:0 0 8px;font-size:20px}
+.goal{margin:0 0 16px;color:var(--muted)}
+.tracker{display:flex;flex-direction:column;gap:12px}
+.progress{
+  height:160px;
+  background:rgba(255,255,255,0.03);
+  border-radius:10px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.03);
+}
+.progress-fill{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  top:0;
+  transform-origin: bottom center;
+  transform: scaleY(0);
+  background:linear-gradient(180deg,var(--accent),var(--success));
+  transition: transform 420ms cubic-bezier(.22,1,.36,1), filter 250ms ease;
+  will-change: transform;
+}
+
+/* pulse when goal reached */
+.progress.pulse .progress-fill{
+  animation: pulse 900ms ease;
+}
+@keyframes pulse {
+  0% { transform: scaleY(1); }
+  30% { transform: scaleY(1.06); }
+  60% { transform: scaleY(0.98); }
+  100% { transform: scaleY(1); }
+}
+
+/* shimmer effect while filling (optional) */
+.progress .progress-fill::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 100%);
+  transform: translateX(-100%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+.progress.anim-shimmer .progress-fill::before{
+  animation: shimmer 1.6s linear infinite;
+}
+@keyframes shimmer { to { transform: translateX(100%); } }
+
+.info{display:flex;justify-content:space-between;align-items:center;padding:8px 0}
+.consumed{font-weight:700;font-size:20px}
+.percentage{color:var(--muted)}
+.remaining{color:var(--muted);font-size:14px}
+.controls{margin-top:16px;display:flex;flex-direction:column;gap:12px}
+.step-controls{display:flex;gap:8px}
+.custom-controls{display:flex;gap:8px}
+.btn{
+  padding:8px 12px;border-radius:8px;border:0;background:rgba(255,255,255,0.03);color:inherit;cursor:pointer;
+  transition: transform 160ms ease, box-shadow 220ms ease, background 180ms ease;
+}
+.btn:active, .btn.clicked { transform: translateY(1px) scale(.98); }
+.btn.primary:hover { box-shadow: 0 8px 30px rgba(96,165,250,0.12); transform: translateY(-2px) scale(1.02); }
+.btn:focus-visible { outline: 2px solid rgba(96,165,250,0.18); outline-offset:3px; }
+input[type=number]{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+.hint{margin:0;color:var(--muted);font-size:13px}
+
+@media (max-width:420px){.container{width:100%}}
