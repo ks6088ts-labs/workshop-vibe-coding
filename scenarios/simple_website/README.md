@@ -5,8 +5,10 @@
 以下のプロンプトを GitHub Copilot に与えて、コードを生成します。
 
 ```text
-Let's create a basic water tracking app and HTML, CSS and Javascript. I want the ability to increment and decrement my water consumption in ounces against the daily goal of 96 ounces.
-All the codes should be inside scenarios/simple_website/generated directory.
+基本的な水分摂取量管理アプリを作成しましょう。
+HTML、CSS、JavaScriptを使用します。
+1日目標の96オンスに対して、水分摂取量をオンス単位で増減できる機能が必要です。
+すべてのコードは scenarios/simple_website/generated ディレクトリ内に配置してください。
 ```
 
 ## 動作確認
