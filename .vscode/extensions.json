@@ -1,5 +1,7 @@
 {
     "recommendations": [
-        "ritwickdey.LiveServer"
+        "ritwickdey.LiveServer",
+        "editorconfig.editorconfig",
+        "davidanson.vscode-markdownlint"
     ]
 }
