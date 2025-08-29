@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tetris Classic</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Title Scene -->
+    <section id="scene-title" class="scene active">
+      <h1 class="game-title">TETRIS</h1>
+      <div class="menu">
+        <button id="btn-start" class="primary">ゲームスタート</button>
+        <button id="btn-highscores">ハイスコア</button>
+        <button id="btn-howto">遊び方</button>
+      </div>
+      <p class="footer">© 2025 Workshop Vibe Coding</p>
+    </section>
+
+    <!-- Game Scene -->
+    <section id="scene-game" class="scene hidden">
+      <div class="hud">
+        <div class="panel">
+          <h2>スコア</h2>
+          <div id="score">0</div>
+        </div>
+        <div class="panel">
+          <h2>レベル</h2>
+            <div id="level">1</div>
+        </div>
+        <div class="panel">
+          <h2>ライン</h2>
+          <div id="lines">0</div>
+        </div>
+        <div class="panel" id="next-panel">
+          <h2>NEXT</h2>
+          <div id="next-container" class="mini-matrix"></div>
+        </div>
+        <div class="panel" id="hold-panel">
+          <h2>HOLD</h2>
+          <div id="hold-container" class="mini-matrix"></div>
+          <div class="hint">(1 回/ピース)</div>
+        </div>
+      </div>
+      <div class="board-wrapper">
+        <canvas id="board" width="300" height="600" aria-label="プレイフィールド" role="img"></canvas>
+        <div id="pause-overlay" class="overlay hidden">PAUSE</div>
+      </div>
+      <div class="game-buttons">
+        <button id="btn-pause">一時停止(P)</button>
+        <button id="btn-back-title">タイトルへ</button>
+      </div>
+    </section>
+
+    <!-- High Scores Scene -->
+    <section id="scene-highscores" class="scene hidden">
+      <h2>ハイスコア</h2>
+      <ol id="highscore-list" class="highscores"></ol>
+      <button class="secondary" data-back>戻る</button>
+    </section>
+
+    <!-- How To Scene -->
+    <section id="scene-howto" class="scene hidden">
+      <h2>遊び方</h2>
+      <ul class="howto">
+        <li>← → : 左右移動</li>
+        <li>↑ : 回転 (時計回り)</li>
+        <li>↓ : ソフトドロップ (押下中高速)</li>
+        <li>Space : ハードドロップ</li>
+        <li>C / Shift : ホールド (1 ピースにつき 1 回)</li>
+        <li>P / Esc : ポーズ</li>
+      </ul>
+      <p>横一列が揃うと消えてスコア。複数同時消去で高得点。レベルが上がると落下が速くなります。</p>
+      <button class="secondary" data-back>戻る</button>
+    </section>
+
+    <!-- Game Over / Name Input Modal -->
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <h3 id="modal-title">ゲームオーバー</h3>
+        <div id="final-score"></div>
+        <form id="name-form" class="hidden">
+          <label>名前: <input id="player-name" maxlength="12" autocomplete="off" /></label>
+          <button type="submit" class="primary">登録</button>
+        </form>
+        <div class="modal-actions">
+          <button id="btn-restart" class="primary">もう一度</button>
+          <button id="btn-modal-close">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>

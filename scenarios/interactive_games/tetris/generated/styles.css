@@ -1,0 +1,67 @@
+* { box-sizing: border-box; }
+html,body { margin:0; padding:0; font-family: 'Segoe UI', system-ui, sans-serif; background:#0d0f17; color:#f4f7fb; height:100%; }
+body { display:flex; justify-content:center; align-items:flex-start; min-height:100vh; }
+#app { width:100%; max-width:1100px; padding:16px; }
+
+h1.game-title { text-align:center; font-size:clamp(3rem,8vw,5.5rem); letter-spacing:0.15em; margin:40px 0 32px; background:linear-gradient(90deg,#6af,#9f6,#f6a); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:800; }
+
+.scene { display:none; animation: fade .4s ease; }
+.scene.active { display:block; }
+.hidden { display:none !important; }
+
+.menu { display:flex; flex-direction:column; gap:16px; align-items:center; }
+button { cursor:pointer; font-size:1rem; padding:12px 28px; border-radius:6px; border:2px solid #3a4763; background:#1c2533; color:#fff; font-weight:600; letter-spacing:0.05em; transition:.2s; }
+button.primary { background:#2563eb; border-color:#2563eb; }
+button.primary:hover { background:#1d4ed8; }
+button:hover { transform:translateY(-2px); box-shadow:0 4px 12px -4px rgba(0,0,0,.4); }
+button:active { transform:translateY(0); }
+button.secondary { background:#374151; border-color:#4b5563; }
+
+.footer { text-align:center; margin-top:60px; font-size:.8rem; opacity:.6; }
+
+/* Game Layout */
+#scene-game { display:flex; flex-wrap:wrap; gap:24px; justify-content:center; }
+.hud { display:flex; flex-direction:column; gap:12px; min-width:180px; }
+.panel { background:#18202c; border:1px solid #2a3547; padding:8px 12px 12px; border-radius:8px; }
+.panel h2 { font-size:0.9rem; margin:0 0 4px; font-weight:600; letter-spacing:0.08em; opacity:.8; }
+.panel #score { font-size:1.4rem; font-weight:700; }
+.panel #level, .panel #lines { font-size:1.2rem; font-weight:600; }
+
+.board-wrapper { position:relative; }
+#board { background:#0e1824; border:2px solid #334155; box-shadow:0 0 0 4px #0b121a, 0 0 12px -2px #0af7; image-rendering:pixelated; }
+.overlay { position:absolute; inset:0; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; font-size:3rem; font-weight:700; letter-spacing:.2em; }
+
+.game-buttons { flex-basis:100%; display:flex; gap:12px; justify-content:center; }
+
+.mini-matrix { width:96px; height:96px; background:#0e1824; border:1px solid #334155; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:2px; }
+.mini-matrix .cell { width:100%; height:100%; background:#1e293b; }
+.mini-matrix .filled { box-shadow:0 0 0 1px #000 inset; }
+.hint { font-size:0.65rem; opacity:.55; margin-top:4px; text-align:center; }
+
+.highscores { list-style:none; padding:0; margin:20px auto; max-width:320px; }
+.highscores li { display:flex; justify-content:space-between; padding:6px 10px; background:#1c2533; border:1px solid #2d3a4f; margin-bottom:6px; border-radius:4px; font-family:monospace; }
+
+.howto { line-height:1.6; }
+
+.modal { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.5); backdrop-filter:blur(2px); }
+.modal-content { background:#1b2430; padding:24px 28px 28px; border-radius:12px; width:min(420px,90%); border:1px solid #334155; box-shadow:0 10px 32px -6px rgba(0,0,0,.6); }
+.modal-content h3 { margin-top:0; }
+.modal-actions { margin-top:18px; display:flex; gap:12px; justify-content:flex-end; }
+#name-form { display:flex; gap:12px; margin-top:12px; }
+#name-form input { background:#0e1824; border:1px solid #334155; color:#fff; padding:6px 8px; border-radius:4px; }
+
+/* Blocks */
+:root { --c-i:#00c7d4; --c-o:#f8d648; --c-t:#b563f9; --c-s:#58d26b; --c-z:#f04747; --c-j:#3f6ff4; --c-l:#f5a14c; }
+.block { position:absolute; }
+
+/* Responsive */
+@media (max-width:900px) { #scene-game { flex-direction:column; align-items:center; } .hud { flex-direction:row; flex-wrap:wrap; justify-content:center; } .panel { flex:1 1 120px; } }
+@media (max-width:520px) { h1.game-title { font-size:3rem; } #board { width:240px; height:480px; } }
+
+@keyframes fade { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+/* Ghost */
+.ghost { opacity:.28; filter:brightness(1.5); }
+
+/* Accessibility focus */
+button:focus-visible { outline:3px solid #60a5fa; outline-offset:2px; }

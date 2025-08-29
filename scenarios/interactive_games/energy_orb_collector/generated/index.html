@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Energy Orb Collector</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="game-root">
+    <canvas id="game-canvas"></canvas>
+    <div id="ui-root">
+      <div id="title-screen" class="panel visible">
+        <h1>Energy Orb Collector</h1>
+        <p>WASD / 矢印キーで移動。時間内にできるだけ多くのオーブを集めよう。</p>
+        <button id="start-btn">Start</button>
+      </div>
+      <div id="hud" class="panel hidden">
+        <div class="stat">Time: <span id="time-remaining">90</span></div>
+        <div class="stat">Score: <span id="score">0</span></div>
+        <div class="stat">High: <span id="high-score">0</span></div>
+        <div class="stat small">Orbs: <span id="orb-count">0</span></div>
+      </div>
+      <div id="result-screen" class="panel hidden">
+        <h2>Result</h2>
+        <p>Score: <span id="final-score">0</span></p>
+        <p>Avg / s: <span id="avg-score">0</span></p>
+        <p>High Score: <span id="final-high-score">0</span></p>
+        <button id="retry-btn">Retry</button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
