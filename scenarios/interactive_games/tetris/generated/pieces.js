@@ -48,14 +48,17 @@ export const SHAPES = {
   ]
 };
 
+// Canvas の fillStyle では CSS カスタムプロパティ (var(--c-i) など) が解決されず
+// 無効色として黒く描画されてしまうブラウザがあるため、直接16進カラーを保持する。
+// (styles.css の :root 定義と同じ値を同期)
 export const COLORS = {
-  I: 'var(--c-i)',
-  O: 'var(--c-o)',
-  T: 'var(--c-t)',
-  S: 'var(--c-s)',
-  Z: 'var(--c-z)',
-  J: 'var(--c-j)',
-  L: 'var(--c-l)'
+  I: '#00c7d4',
+  O: '#f8d648',
+  T: '#b563f9',
+  S: '#58d26b',
+  Z: '#f04747',
+  J: '#3f6ff4',
+  L: '#f5a14c'
 };
 
 export class BagRandomizer {
