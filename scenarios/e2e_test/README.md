@@ -243,6 +243,15 @@ Playwright MCP Serverを使用してファミリーレストラン注文シス�
 探索により、このウェブサイトは本格的なレストラン注文システムとして十分な機能を備えており、包括的なテストスイートの作成が可能であることが確認されました。
 ```
 
+### [Playwright MCP Chrome Extension](https://github.com/microsoft/playwright-mcp/blob/main/extension/README.md)
+
+Playwright MCP ブラウザ拡張機能が登場する前は、Playwright MCP サーバーでログイン状態を維持するには、LLM にログイン認証情報を渡す必要がありました。
+拡張機能を使えば、既存のブラウザプロファイルを安全に再利用できます。パスワードは不要です。LLM は既に認証済みのセッションに対してテストを実行できます。
+
+- Download link: [microsoft/playwright-mcp/releases](https://github.com/microsoft/playwright-mcp/releases)
+- [Testing in a Logged-In State with the Playwright MCP Browser Extension](https://dev.to/debs_obrien/testing-in-a-logged-in-state-with-the-playwright-mcp-browser-extension-4cmg)
+- [Playwright MCP + Chrome Extension: Testing with Logged-In Profiles](https://www.youtube.com/watch?v=uE0r51pneSA)
+
 # 参考文献
 
 - [🤖 Awesome GitHub Copilot Customizations](https://github.com/github/awesome-copilot)
