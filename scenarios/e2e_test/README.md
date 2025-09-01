@@ -248,9 +248,15 @@ Playwright MCP Serverを使用してファミリーレストラン注文シス�
 Playwright MCP ブラウザ拡張機能が登場する前は、Playwright MCP サーバーでログイン状態を維持するには、LLM にログイン認証情報を渡す必要がありました。
 拡張機能を使えば、既存のブラウザプロファイルを安全に再利用できます。パスワードは不要です。LLM は既に認証済みのセッションに対してテストを実行できます。
 
+例えば、`#playwright Webブラウザを開いて GitHub にアクセスして、自身のリポジトリを列挙して` などのプロンプトを実行することで、GitHub にログインした状態でリポジトリの一覧を取得できます。
+
 - Download link: [microsoft/playwright-mcp/releases](https://github.com/microsoft/playwright-mcp/releases)
 - [Testing in a Logged-In State with the Playwright MCP Browser Extension](https://dev.to/debs_obrien/testing-in-a-logged-in-state-with-the-playwright-mcp-browser-extension-4cmg)
 - [Playwright MCP + Chrome Extension: Testing with Logged-In Profiles](https://www.youtube.com/watch?v=uE0r51pneSA)
+
+注意:
+
+- `#openSimpleBrowser` tool を呼び出してしまい、Playwright MCP 経由でのブラウザ操作が成功しない場合は、 `#openSimpleBrowser` を無効化してください
 
 # 参考文献
 
