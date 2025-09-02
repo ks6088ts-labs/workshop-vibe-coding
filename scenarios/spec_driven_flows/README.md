@@ -1,31 +1,58 @@
 # Spec Driven Flow シナリオ
 
-## 手順
+## 🎯 学習目標
 
-GitHub Copilot の各モードを切り替えながら、仕様策定からコード生成、動作確認までを行います。
+このシナリオでは、仕様駆動開発のアプローチを GitHub Copilot と組み合わせて実践します：
 
-| Feature             | Prompt                                                                                                                                                           |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Custom chat modes   | [chatmodes/specification.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/specification.chatmode.md)                                   |
-| Custom instructions | [instructions/spec-driven-workflow-v1.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/spec-driven-workflow-v1.instructions.md) |
-| Prompt files        | [prompts/create-specification.prompt.md](https://github.com/github/awesome-copilot/blob/main/prompts/create-specification.prompt.md)                             |
+- **仕様駆動開発の理解**：要求から仕様書、実装までの一連の流れ
+- **GitHub Copilot カスタマイズ活用**：Custom Chat Modes、Custom Instructions、Prompt Files の使用
+- **構造化された開発プロセス**：要求 → 仕様書 → 設計 → 実装の体系的アプローチ
+- **本格的なWebアプリケーション開発**：ファミリーレストラン注文システムの実装
 
-1. 仕様策定の対象となるシステムの簡潔な要求仕様を生成する
+## 📋 前提条件
 
-適当なシステムの仕様を作成する以下のようなプロンプトを GitHub Copilot の Ask Mode で与えます。
+- [Simple Website シナリオ](../simple_website/README.md) の完了（推奨）
+- GitHub Copilot の基本操作の理解
+- [🤖 Awesome GitHub Copilot Customizations](https://github.com/github/awesome-copilot) への理解
+
+### 使用する GitHub Copilot カスタマイズ
+
+| 機能 | 説明 | リンク |
+|------|------|-------|
+| Custom Chat Modes | 仕様書作成に特化した対話モード | [specification.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/specification.chatmode.md) |
+| Custom Instructions | 仕様駆動ワークフローの指示 | [spec-driven-workflow-v1.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/spec-driven-workflow-v1.instructions.md) |
+| Prompt Files | 仕様作成用プロンプト | [create-specification.prompt.md](https://github.com/github/awesome-copilot/blob/main/prompts/create-specification.prompt.md) |
+
+## 🚀 実装手順
+
+### フェーズ 1: 初期要求の定義
+
+#### ステップ 1.1: 要求仕様の生成
+
+GitHub Copilot の **Ask Mode** で以下のプロンプトを実行します：
 
 ```text
 仕様駆動型開発のサンプルとして、ファミリーレストランのオーダーシステムを題材としてあげます。
 このシステムのフロントエンドのウェブアプリを作るにあたり、適切な要求仕様を簡潔にまとめてください。
 ```
 
-2. 1 で出力された仕様を GitHub Copilot の Custom Chat Mode (Specification) に入力し、フォーマットの要求仕様書を生成する。
+**期待される出力例：**
+- ユーザーの種類（顧客、従業員）の特定
+- 各ユーザーの主要な行動シナリオ
+- 基本的な機能要件
+- 非機能要件（パフォーマンス、セキュリティ等）
+
+### フェーズ 2: 詳細仕様書の作成
+
+#### ステップ 2.1: Custom Chat Mode (Specification) の実行
+
+1 で生成された要求仕様を **GitHub Copilot の Custom Chat Mode (Specification)** に入力します：
 
 ```text
 お客様のご要望にお応えできるよう、ファミリーレストランのオーダーシステムフロントエンドウェブアプリの要件定義プロンプトを以下に簡潔にまとめました。
 
 ## ユースケースの特定
-\---
+---
 まず、このシステムを利用する**ユーザーの種類**と、それぞれの**ユーザーが何を行うか**を明確に特定します。
 
 ### お客様 (顧客)
@@ -49,7 +76,7 @@ GitHub Copilot の各モードを切り替えながら、仕様策定からコ�
         5.  注文内容の修正やキャンセルを処理する。
 
 ## 主要機能と画面
-\---
+---
 ユースケースに基づき、具体的な**機能**とそれに対応する**画面**を定義します。
 
 ### 顧客向け機能と画面
@@ -64,7 +91,7 @@ GitHub Copilot の各モードを切り替えながら、仕様策定からコ�
 * **個別注文詳細画面:** 特定のテーブルの注文内容、顧客からのリクエスト情報。
 
 ## 非機能要件
-\---
+---
 パフォーマンス、セキュリティ、アクセシビリティなど、システムが**満たすべき品質要件**を定義します。
 
 * **パフォーマンス:**
@@ -94,20 +121,191 @@ GitHub Copilot の各モードを切り替えながら、仕様策定からコ�
     * 「注文を『調理中』から『提供済み』にステータス変更できるか」
 ```
 
-仕様書が [spec-process-family-restaurant-ordering-frontend.md](../../spec/spec-process-family-restaurant-ordering-frontend.md) に生成されます。
+#### ステップ 2.2: 生成された仕様書の確認
 
-3. 2 で生成された仕様書を Context に追加して、Agent Mode で `/create-specification` を実行します。
+上記の実行により、詳細な仕様書が `spec/spec-process-family-restaurant-ordering-frontend.md` に生成されます。
+生成された仕様書には以下の要素が含まれることを確認してください：
 
-4. 3 で生成された仕様書を Context に追加して、Agent Mode で以下のプロンプトを実行します。
+- **要件ID（REQ-XXX）による構造化**
+- **受入基準（AC-XXX）の明確な定義**
+- **セキュリティ要件（SEC-XXX）**
+- **パフォーマンス要件（PERF-XXX）**
+- **UX要件（UX-XXX）**
+
+### フェーズ 3: Agent Mode による仕様書の精緻化
+
+#### ステップ 3.1: 仕様書の Context 追加と精緻化
+
+1. 生成された仕様書を VS Code で開く
+2. 仕様書ファイル全体を Context に追加
+3. **Agent Mode** で `/create-specification` プロンプトを実行
+
+これにより、仕様書がさらに詳細化され、以下の要素が追加されます：
+- **詳細な要件マッピング**
+- **テスト用受入基準**
+- **技術的制約の明確化**
+
+### フェーズ 4: フロントエンド実装
+
+#### ステップ 4.1: 実装コードの生成
+
+詳細化された仕様書を Context に追加した状態で、**Agent Mode** で以下のプロンプトを実行します：
 
 ```text
 #file:spec-process-family-restaurant-ordering-frontend.md に記載された仕様書をもとに HTML, CSS, JavaScript でフロントエンドのウェブサイトを作成してください。
 モダンなデザインと直感的な UI にしてください。
 コードは scenarios/spec_driven_flows/generated 以下に作成してください
+
+以下の技術要件も満たしてください：
+- レスポンシブデザイン（モバイルファースト）
+- アクセシビリティ対応（ARIA ラベル、キーボード操作）
+- モック API を使用したリアルタイム更新
+- 多言語対応（日本語、英語、中国語）
+- ダークモード・ライトモード切り替え
 ```
 
-# 参考文献
+#### ステップ 4.2: 生成されたコードの確認
 
-- [Agent Mode in Action: AI Coding with Vibe and Spec-Driven Flows | BRK102](https://build.microsoft.com/en-US/sessions/BRK102?source=sessions), [YouTube](https://www.youtube.com/watch?v=1DlNVROQ6DI)
+以下のファイルが生成されることを確認します：
+
+```
+scenarios/spec_driven_flows/generated/
+├── index.html           # メインHTML
+├── styles.css           # スタイルシート
+├── app.js              # メインアプリケーションロジック
+├── mock-data.js        # モックデータ
+├── i18n.js            # 国際化対応
+└── README.md          # 実装ドキュメント
+```
+
+### フェーズ 5: 動作確認とテスト
+
+#### ステップ 5.1: ローカル環境での起動
+
+```bash
+# Live Server を使用（推奨）
+# VS Code で index.html を右クリック → "Open with Live Server"
+
+# または Python HTTP サーバーを使用
+cd scenarios/spec_driven_flows/generated
+python -m http.server 5500
+# ブラウザで http://localhost:5500 にアクセス
+```
+
+#### ステップ 5.2: 機能テスト
+
+以下の主要機能が正しく動作することを確認します：
+
+##### 顧客機能のテスト
+1. **セッション開始**
+   - テーブルID入力（QRスキャンの代替）
+   - セッション開始ボタンクリック
+
+2. **メニュー閲覧**
+   - カテゴリフィルタ（All、Food、Drink）の動作
+   - 検索機能の動作
+   - メニューアイテムの表示
+
+3. **注文機能**
+   - メニューアイテムクリックで詳細ダイアログ表示
+   - サイズ・オプション選択
+   - カートへの追加
+   - 数量変更・削除
+
+4. **注文確定**
+   - カート内容の確認
+   - 注文確定処理
+   - 会計リクエスト
+
+##### 従業員機能のテスト
+1. **従業員モード切り替え**
+   - 右上の「従業員モード」トグル
+
+2. **注文管理**
+   - 新規注文の表示
+   - 注文ステータスの変更
+   - テーブル別注文履歴
+
+##### 共通機能のテスト
+1. **多言語切り替え**
+   - 日本語 ⇔ 英語 ⇔ 中国語
+
+2. **テーマ切り替え**
+   - ライトモード ⇔ ダークモード
+
+3. **レスポンシブ対応**
+   - デスクトップ・タブレット・モバイル表示
+
+## 📊 実装結果の確認
+
+### 期待される成果物
+
+1. **構造化された仕様書**: 要件ID付きの詳細仕様書
+2. **本格的なWebアプリ**: 実際のレストランで使用可能なレベルの UI/UX
+3. **完全なモック実装**: バックエンドなしで動作する完全なフロントエンド
+
+### 要件マッピングの例
+
+生成された実装が仕様書の要件を満たしていることを確認します：
+
+| 要件ID | 実装状況 | 確認方法 |
+|--------|----------|----------|
+| REQ-001 | ✅ QRスキャン代替（テーブルID入力） | セッション開始機能をテスト |
+| REQ-002 | ✅ カテゴリフィルタ・検索 | メニュー画面で操作確認 |
+| REQ-003 | ✅ メニュー詳細（画像・価格・アレルギー） | 商品クリックで詳細ダイアログ確認 |
+| REQ-004 | ✅ カート操作（追加・数量変更・削除） | カート画面で操作確認 |
+| REQ-005 | ✅ 注文確定とAPI送信 | 注文確定ボタンクリック |
+
+## 🛠️ トラブルシューティング
+
+### よくある問題と解決方法
+
+#### 仕様書が生成されない
+- Custom Chat Mode が正しく設定されているか確認
+- プロンプトが長すぎる場合は段階的に分割
+
+#### コード生成が不完全
+- 仕様書ファイルが Context に追加されているか確認
+- ファイルサイズが大きい場合は主要部分のみ抜粋して Context に追加
+
+#### Live Server でアクセスできない
+- ポート番号が競合していないか確認（通常は5500番）
+- ファイアウォールの設定を確認
+
+#### モック API が動作しない
+- ブラウザのコンソールでJavaScriptエラーを確認
+- mock-data.js が正しく読み込まれているか確認
+
+## 🎯 学習ポイント
+
+このシナリオで習得すべきスキル：
+
+### 1. 仕様駆動開発のプロセス理解
+- 要求 → 仕様書 → 実装の流れ
+- 構造化された要件定義の重要性
+
+### 2. GitHub Copilot カスタマイズの活用
+- Custom Chat Modes の使い方
+- Context の効果的な活用方法
+
+### 3. 本格的なWebアプリケーション開発
+- モダンなUI/UXの実装
+- 国際化対応・アクセシビリティ
+
+### 4. モック駆動開発
+- バックエンドなしでのフロントエンド開発
+- リアルタイム機能のシミュレーション
+
+## 🔗 次のステップ
+
+Spec Driven Flow シナリオが完了したら、以下のシナリオに進むことをお勧めします：
+
+- **[E2E Testing](../e2e_test/README.md)**: 作成したアプリのテスト自動化
+- **[Design System](../design_system/README.md)**: デザインシステムを活用した開発
+
+## 📚 参考文献
+
+- [Agent Mode in Action: AI Coding with Vibe and Spec-Driven Flows | BRK102](https://build.microsoft.com/en-US/sessions/BRK102?source=sessions) ([YouTube](https://www.youtube.com/watch?v=1DlNVROQ6DI))
 - [Customize AI responses in VS Code](https://code.visualstudio.com/docs/copilot/copilot-customization)
 - [🤖 Awesome GitHub Copilot Customizations](https://github.com/github/awesome-copilot)
+- [Specification-Driven Development Best Practices](https://github.com/github/awesome-copilot/blob/main/instructions/spec-driven-workflow-v1.instructions.md)
